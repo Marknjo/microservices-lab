@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-server-dpy
+spec:
+  selector:
+    matchLabels:
+      app: nats-server
+  template:
+    metadata:
+      labels:
+        app: nats-server
+    spec:
+      containers:
+      - name: nats-server-cnt
+        # Deprecated should replace with nats and Jetstream 
+        image: nats-streaming
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 4222
+        args:
+          [
+            "-p",
+            "4222",
+            "-m",
+            "8222",
+            "-hbi",
+            "5s",
+            "-hbt",
+            "5s",
+            "-hbf",
+            "2",
+            "-SD",
+            "-cid",
+            "ticketing"
+          ]
