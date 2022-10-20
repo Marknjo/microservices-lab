@@ -37,3 +37,23 @@ spec:
             "-cid",
             "ticketing"
           ]
+---
+### Nats Server Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats-server-srv
+spec:
+  selector:
+    app: nats-server
+  type: ClusterIP
+  ports:
+    - name: stan
+      protocol: TCP
+      port: 4222
+      targetPort: 4222
+
+    - name: monitoring
+      protocol: TCP
+      port: 8222
+      targetPort: 8222
