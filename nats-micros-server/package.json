@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:publisher": "ts-node-dev --rs --notify false ./src/publisher.ts",
-    "start:listen": "ts-node-dev --rs --notify false ./src/listener.ts"
+    "start:listener": "ts-node-dev --rs --notify false ./src/listener.ts"
   },
   "keywords": [
     "Nats",
