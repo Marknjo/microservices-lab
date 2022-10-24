@@ -1,10 +1,5 @@
 import { Message, Stan } from 'node-nats-streaming';
-import { ClientSubjects } from '../types/client-subjects';
-
-interface Event {
-  subject: ClientSubjects;
-  data: any;
-}
+import { Event } from '../types/base-event.interface';
 
 export abstract class Listener<T extends Event> {
   abstract subject: string;
