@@ -4,8 +4,8 @@
   "description": "A Simple Application to test with Nats Server docker container",
   "main": "index.js",
   "scripts": {
-    "start:publisher": "ts-node-dev --rs --notify false ./src/publisher.ts",
-    "start:listener": "ts-node-dev --rs --notify false ./src/listener.ts"
+    "start:pub": "ts-node-dev --rs --notify false ./src/publisher.ts",
+    "start:li": "ts-node-dev --rs --notify false ./src/listener.ts"
   },
   "keywords": [
     "Nats",
