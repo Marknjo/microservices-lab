@@ -1,4 +1,4 @@
-import { ClientSubjects } from './client-subjects';
+import { ClientSubjects } from './client-subjects.enum';
 
 export interface TickerUpdatedEvent {
   subject: ClientSubjects.TicketUpdated;

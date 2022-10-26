@@ -1,7 +1,7 @@
 import { Message, Stan } from 'node-nats-streaming';
 import { Listener } from '../core/base-listener';
-import { ClientSubjects } from '../types/client-subjects';
-import { TicketCreatedEvent } from '../types/ticker-created-event';
+import { ClientSubjects } from '../types/client-subjects.enum';
+import { TicketCreatedEvent } from '../types/ticker-created-event.interface';
 
 export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   subject: ClientSubjects.TicketCreated =
