@@ -1,5 +1,5 @@
 import { Message, Stan } from 'node-nats-streaming';
-import { Listener } from '../nats/baseListener';
+import { Listener } from '../core/baseListener';
 import { ClientSubjects } from '../types/client-subjects';
 import { TicketCreatedEvent } from '../types/ticker-created-event';
 
