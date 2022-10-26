@@ -14,15 +14,6 @@ export abstract class Listener<T extends Event> {
     this.ackWait = ackWait * 1000 || this.ackWait;
   }
 
-  subscriptionOptions() {
-    return this.client
-      .subscriptionOptions()
-      .setDeliverAllAvailable()
-      .setManualAckMode(true)
-      .setAckWait(this.ackWait)
-      .setDurableName(this.queueGroupName);
-  }
-
   listen() {
     const subscription = this.client.subscribe(
       this.subject,
@@ -42,7 +33,16 @@ export abstract class Listener<T extends Event> {
     });
   }
 
-  parseMessage(msg: Message) {
+  private subscriptionOptions() {
+    return this.client
+      .subscriptionOptions()
+      .setDeliverAllAvailable()
+      .setManualAckMode(true)
+      .setAckWait(this.ackWait)
+      .setDurableName(this.queueGroupName);
+  }
+
+  private parseMessage(msg: Message) {
     const data = msg.getData();
 
     return typeof data === 'string'
