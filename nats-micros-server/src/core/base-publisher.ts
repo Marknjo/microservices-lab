@@ -1,4 +1,5 @@
 import { Stan } from 'node-nats-streaming';
+import { promisify } from 'util';
 import { Event } from '../types/base-event.interface';
 
 export abstract class Publisher<T extends Event> {
@@ -6,11 +7,16 @@ export abstract class Publisher<T extends Event> {
 
   constructor(private readonly client: Stan) {}
 
-  publish(data: T['data']) {
-    const serializedData = JSON.stringify(data);
+  async publish(data: T['data']) {
+    return new Promise<void>((resolve, reject) => {
+      this.client.publish(this.subject, JSON.stringify(data), err => {
+        if (err) {
+          reject(err);
+        }
 
-    this.client.publish(this.subject, serializedData, () => {
-      console.log(`Event "${this.subject}" published`);
+        console.log(`Event "${this.subject}" published`);
+        resolve();
+      });
     });
   }
 }
