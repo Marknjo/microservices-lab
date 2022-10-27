@@ -1,9 +1,8 @@
 import { Stan } from 'node-nats-streaming';
-import { promisify } from 'util';
 import { Event } from '../types/base-event.interface';
 
 export abstract class Publisher<T extends Event> {
-  abstract readonly subject: string;
+  abstract readonly subject: T['subject'];
 
   constructor(private readonly client: Stan) {}
 

@@ -2,7 +2,7 @@ import { Message, Stan } from 'node-nats-streaming';
 import { Event } from '../types/base-event.interface';
 
 export abstract class Listener<T extends Event> {
-  abstract subject: string;
+  abstract subject: T['subject'];
   abstract queueGroupName: string;
   abstract onMessage(data: T['data'], msg: Message): void;
 
