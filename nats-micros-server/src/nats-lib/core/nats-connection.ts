@@ -12,22 +12,23 @@ class NatsConnection {
     });
 
     return new Promise<Stan>((resolve, reject) => {
-      if (!this._client) {
+      const stan = this._client;
+      if (!stan) {
         return reject('NATS client not connected');
       }
 
-      this._client.on('connect', () => {
-        console.log('Connection to Nats successful 🎊🎊🎊');
+      stan.on('connect', () => {
+        console.log('Connection to NATS client successful 🎊🎊🎊');
 
-        this._client!.on('close', () => {
+        stan.on('close', () => {
           console.log('Terminating Nats server connection...');
           process.exit(process.exitCode || 0);
         });
 
-        return resolve(this._client!);
+        return resolve(stan);
       });
 
-      this._client.on('error', err => {
+      stan.on('error', err => {
         return reject(err);
       });
     });
