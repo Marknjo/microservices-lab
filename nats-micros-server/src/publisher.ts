@@ -1,35 +1,37 @@
-import { TicketCreatedPublisher } from './nats-lib';
-import { natsClient } from './nats-lib/core/nats-connection';
+import {
+  closeClient,
+  natsConnection,
+  TicketCreatedPublisher,
+} from './nats-lib';
 
 console.clear();
 
-async function natsConnection() {
+async function loadNatsConnection() {
+  await natsConnection.connect({
+    clientId: 'klkajdljadlfj',
+    clusterId: 'ticketing',
+    url: 'http://localhost:4222',
+  });
+}
+
+export async function publishData() {
+  await loadNatsConnection();
+
+  const data = {
+    id: '123',
+    title: 'concert',
+    price: 20,
+  };
+
+  /// handle ticket creation
+  const publisher = new TicketCreatedPublisher(natsConnection.client);
   try {
-    const stan = await natsClient.connect({
-      clusterId: 'ticketing',
-      clientId: 'abc',
-      url: 'http://localhost:4222',
-    });
-
-    const data = {
-      id: '123',
-      title: 'concert',
-      price: 20,
-    };
-
-    /// handle ticket creation
-    const publisher = new TicketCreatedPublisher(stan);
-    try {
-      await publisher.publish(data);
-    } catch (error) {
-      throw error;
-    }
-
-    // If error close client
-    natsClient.close(stan);
+    await publisher.publish(data);
   } catch (error) {
     console.error(`💥💥💥 ${error}`);
   }
 }
 
-natsConnection();
+publishData();
+
+natsConnection.close();

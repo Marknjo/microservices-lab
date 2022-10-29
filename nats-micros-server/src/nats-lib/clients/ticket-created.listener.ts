@@ -10,7 +10,7 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
 
   constructor(client: Stan) {
     super(client);
-    console.log(this.subject);
+    //console.log({ subject: this.subject });
     // this.setAckWait = 10;
   }
 

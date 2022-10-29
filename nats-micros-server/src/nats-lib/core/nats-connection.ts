@@ -4,6 +4,14 @@ import { NatsConnectionOptions } from '../types/nats-connection-options.interfac
 class NatsConnection {
   private _client?: Stan;
 
+  get client() {
+    if (!this._client) {
+      throw new Error('Cannot access NATS client before connecting');
+    }
+
+    return this._client;
+  }
+
   connect(options: NatsConnectionOptions) {
     const { clientId, clusterId, url, options: opts } = options;
     this._client = nats.connect(clusterId, clientId, {
@@ -11,7 +19,7 @@ class NatsConnection {
       ...opts,
     });
 
-    return new Promise<Stan>((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const stan = this._client;
       if (!stan) {
         return reject('NATS client not connected');
@@ -20,12 +28,7 @@ class NatsConnection {
       stan.on('connect', () => {
         console.log('Connection to NATS client successful 🎊🎊🎊');
 
-        stan.on('close', () => {
-          console.log('Terminating Nats server connection...');
-          process.exit(process.exitCode || 0);
-        });
-
-        return resolve(stan);
+        return resolve();
       });
 
       stan.on('error', err => {
@@ -34,10 +37,25 @@ class NatsConnection {
     });
   }
 
-  close(client: Stan) {
-    process.on('SIGINT', () => client.close());
-    process.on('SIGTERM', () => client.close());
+  close() {
+    this.client.on('close', () => {
+      console.log('Terminating Nats server connection...');
+      process.exit(process.exitCode || 0);
+    });
+
+    process.on('SIGINT', () => this.client.close());
+    process.on('SIGTERM', () => this.client.close());
   }
 }
 
-export const natsClient = new NatsConnection();
+export function closeClient(client: Stan) {
+  client.on('close', () => {
+    console.log('Terminating Nats server connection...');
+    process.exit(process.exitCode || 0);
+  });
+
+  process.on('SIGINT', () => client.close());
+  process.on('SIGTERM', () => client.close());
+}
+
+export const natsConnection = new NatsConnection();
