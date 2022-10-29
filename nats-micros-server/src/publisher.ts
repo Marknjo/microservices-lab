@@ -1,8 +1,4 @@
-import {
-  closeClient,
-  natsConnection,
-  TicketCreatedPublisher,
-} from './nats-lib';
+import { natsConnection, TicketCreatedPublisher } from './nats-lib';
 
 console.clear();
 

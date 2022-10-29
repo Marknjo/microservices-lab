@@ -26,7 +26,7 @@
 import { randomBytes } from 'crypto';
 
 import { TicketCreatedListener } from './nats-lib';
-import { natsConnection, closeClient } from './nats-lib';
+import { natsConnection } from './nats-lib';
 
 console.clear();
 
@@ -49,5 +49,5 @@ async function loadNatsConnection() {
 
 loadNatsConnection();
 
-// closeClient(natsConnection.client);
-// natsConnection.close();
+/// Close connection on error
+natsConnection.close();

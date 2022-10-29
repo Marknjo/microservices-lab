@@ -27,7 +27,7 @@ class NatsConnection {
 
       stan.on('connect', () => {
         console.log('Connection to NATS client successful 🎊🎊🎊');
-
+        // this.close();
         return resolve();
       });
 
@@ -46,16 +46,6 @@ class NatsConnection {
     process.on('SIGINT', () => this.client.close());
     process.on('SIGTERM', () => this.client.close());
   }
-}
-
-export function closeClient(client: Stan) {
-  client.on('close', () => {
-    console.log('Terminating Nats server connection...');
-    process.exit(process.exitCode || 0);
-  });
-
-  process.on('SIGINT', () => client.close());
-  process.on('SIGTERM', () => client.close());
 }
 
 export const natsConnection = new NatsConnection();
