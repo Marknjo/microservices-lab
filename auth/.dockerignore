@@ -1,0 +1,5 @@
+node_module
+pnpm-lock.yaml
+.git
+**/*.env
+*.env
