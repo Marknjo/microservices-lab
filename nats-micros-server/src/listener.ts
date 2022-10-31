@@ -26,7 +26,7 @@
 import { randomBytes } from 'crypto';
 
 import { TicketCreatedListener } from './nats-lib';
-import { natsConnection } from './nats-lib';
+import { natsWrapper } from './nats-lib';
 
 console.clear();
 
@@ -34,14 +34,14 @@ const id: string = randomBytes(4).toString('hex');
 
 async function loadNatsConnection() {
   try {
-    await natsConnection.connect({
+    await natsWrapper.connect({
       clientId: id,
       clusterId: 'ticketing',
       url: 'http://localhost:4222',
     });
 
     // Listen to ticket creation
-    new TicketCreatedListener(natsConnection.client).listen();
+    new TicketCreatedListener(natsWrapper.client).listen();
   } catch (error) {
     console.error(`💥💥💥 ${error}`);
   }

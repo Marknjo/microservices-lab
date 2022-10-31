@@ -1,7 +1,7 @@
 /// Base Clients
 export * from './core/base-listener';
 export * from './core/base-publisher';
-export * from './core/nats-connection';
+export * from './core/nats-wrapper';
 
 /// Custom Clients
 export * from './clients/ticket-created.listener';

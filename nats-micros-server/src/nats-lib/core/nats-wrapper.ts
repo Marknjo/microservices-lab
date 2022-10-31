@@ -1,7 +1,7 @@
 import nats, { Stan } from 'node-nats-streaming';
 import { NatsConnectionOptions } from '../types/nats-connection-options.interface';
 
-class NatsConnection {
+class NatsWrapper {
   private _client?: Stan;
 
   get client() {
@@ -52,4 +52,4 @@ class NatsConnection {
   }
 }
 
-export const natsConnection = new NatsConnection();
+export const natsWrapper = new NatsWrapper();

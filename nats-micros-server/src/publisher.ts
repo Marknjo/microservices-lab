@@ -1,9 +1,9 @@
-import { natsConnection, TicketCreatedPublisher } from './nats-lib';
+import { natsWrapper, TicketCreatedPublisher } from './nats-lib';
 
 console.clear();
 
 async function loadNatsConnection() {
-  await natsConnection.connect({
+  await natsWrapper.connect({
     clientId: 'klkajdljadlfj',
     clusterId: 'ticketing',
     url: 'http://localhost:4222',
@@ -20,7 +20,7 @@ export async function publishData() {
   };
 
   /// handle ticket creation
-  const publisher = new TicketCreatedPublisher(natsConnection.client);
+  const publisher = new TicketCreatedPublisher(natsWrapper.client);
   try {
     await publisher.publish(data);
   } catch (error) {
