@@ -9,6 +9,10 @@ class NatsConnection {
       throw new Error('Cannot access NATS client before connecting');
     }
 
+    /// always close the client if client is closed
+    this.close(this._client);
+
+    /// Return the client
     return this._client;
   }
 
@@ -37,14 +41,14 @@ class NatsConnection {
     });
   }
 
-  close() {
-    this.client.on('close', () => {
-      console.log('Terminating Nats server connection...');
+  private close(client: Stan) {
+    client.on('close', () => {
+      console.log('Terminating Nats server connection...⌛⏳⌛⏳');
       process.exit(process.exitCode || 0);
     });
 
-    process.on('SIGINT', () => this.client.close());
-    process.on('SIGTERM', () => this.client.close());
+    process.on('SIGINT', () => client.close());
+    process.on('SIGTERM', () => client.close());
   }
 }
 

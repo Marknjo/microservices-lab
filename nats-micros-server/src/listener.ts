@@ -48,6 +48,3 @@ async function loadNatsConnection() {
 }
 
 loadNatsConnection();
-
-/// Close connection on error
-natsConnection.close();

@@ -29,5 +29,3 @@ export async function publishData() {
 }
 
 publishData();
-
-natsConnection.close();
