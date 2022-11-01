@@ -1,5 +1,8 @@
 # compiled output
 dist
+.dist
+.build
+build
 node_modules
 
 # Logs

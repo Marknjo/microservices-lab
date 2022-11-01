@@ -8,6 +8,8 @@ spec:
   selector:
     matchLabels:
       app: auth
+  replicas: 1
+  minReadySeconds: 10
   template:
     metadata:
       labels:
@@ -16,11 +18,27 @@ spec:
     spec:
       containers:
       - name: auth-api
-        image: marknjo/ms-auth-api
+        image: marknjo/ms-lab-auth
+        imagePullPolicy: Never
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "236Mi"
+            cpu: "200m"
+        # readinessProbe:
+        #   tcpSocket:
+        #     port: 3031
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 3
+        #   periodSeconds: 2
+        #   failureThreshold: 1
+        # livenessProbe:
+        #   httpGet:
+        #     port: 3031
+        #     path: /health
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 3
+        #   periodSeconds: 2
+        #   failureThreshold: 1
         ports:
         - containerPort: 3031
 ---

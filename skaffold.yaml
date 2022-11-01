@@ -1,0 +1,27 @@
+apiVersion: skaffold/v3alpha1
+kind: Config
+deploy:
+  kubectl:
+    flags:
+      disableValidation: false
+
+manifests: 
+      rawYaml: [".infra/k8s/*"]
+      
+build:
+  local:
+    push: false
+    concurrency: 1
+    tryImportMissing: false
+    useDockerCLI: false
+  artifacts:
+    - image: marknjo/ms-lab-auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          # - src: "build/**/*.*"
+          #   dest: .
+          - src: "src/**/*.ts"
+            dest: .
