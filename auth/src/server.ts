@@ -4,6 +4,9 @@ import { app } from './app';
 /// Start express server
 const port = env.PORT || 3031;
 const host = env.HOST || 'localhost';
+
+console.table({ port, host });
+
 app.listen(port, () => {
   console.log('\n');
 
