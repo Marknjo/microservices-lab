@@ -15,6 +15,7 @@ spec:
       - name: nats-server-cnt
         # Deprecated should replace with nats and Jetstream 
         image: nats-streaming
+        imagePullPolicy: Never
         resources:
           limits:
             memory: "128Mi"

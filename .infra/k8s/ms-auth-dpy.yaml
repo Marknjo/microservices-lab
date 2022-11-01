@@ -24,6 +24,18 @@ spec:
           limits:
             memory: "236Mi"
             cpu: "200m"
+        env: 
+          - name: PORT
+            value: "3031"
+          - name: HOST
+            value: ticketing.dev
+          - name: HOST_SRV
+            value: ms-auth-srv
+          - name: API_VERSION
+            value: "1"
+          - name: RUN_ENV
+            value: "kubernetes"
+
         # readinessProbe:
         #   tcpSocket:
         #     port: 3031
@@ -57,4 +69,3 @@ spec:
     protocol: TCP
     port: 3031
     targetPort: 3031
-
