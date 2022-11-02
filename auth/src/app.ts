@@ -5,7 +5,8 @@ import morgan from 'morgan';
 import { env } from 'process';
 
 /// Routes
-import { signInRouter } from './routes/signup';
+import { signUpRoute } from './routes/signup';
+import { signInRoute } from './routes/signin';
 
 // @ts-ignore: false positive
 const app = express() as Express;
@@ -54,7 +55,8 @@ app.get(`${baseURl}/health`, (req: Request, res: Response) => {
 });
 
 //// Routes
-app.use(`${baseURl}`, signInRouter);
+app.use(`${baseURl}`, signUpRoute);
+app.use(`${baseURl}`, signInRoute);
 
 /// Export App
 export { app };
