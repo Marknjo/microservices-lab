@@ -5,7 +5,7 @@ import { app, baseURl } from './app';
 const port = env.PORT || 3031;
 const hostSrv = env.HOST_SRV || 'localhost';
 const host = env.HOST || 'localhost';
-const health = env.HEALTH || `${baseURl}health`;
+const healthUrl = `${baseURl}/health`;
 
 app.listen(port, () => {
   console.log('\n');
@@ -15,8 +15,11 @@ app.listen(port, () => {
   console.log(
     `🎊🎊🎊 Auth service running on ${protocol}://${hostSrv}:${port}`
   );
+
+  const rootHostUrl = host === 'localhost' ? `${host}:${port}` : host;
+
   console.log(
-    `🎊🎊🎊 Auth service health check running on ${protocol}://${host}:${port}/${health}`
+    `🎊🎊🎊 Auth api health check running on ${protocol}://${rootHostUrl}${healthUrl}`
   );
   console.log('\n');
 });
