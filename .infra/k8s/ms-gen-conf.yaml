@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-gen-conf
+data:
+  API_VERSION: "1"
+  RUN_ENV: "kubernetes"
+  HOST: ticketing.dev

@@ -4,7 +4,5 @@ metadata:
   name: ms-auth-dpy-conf
 data:
    PORT: "3031"
-   HOST: ticketing.dev
    HOST_SRV: ms-auth-srv
-   API_VERSION: "1"
-   RUN_ENV: "kubernetes"
+
