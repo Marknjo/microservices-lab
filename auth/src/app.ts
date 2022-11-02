@@ -8,6 +8,7 @@ import { env } from 'process';
 import { signUpRoute } from './routes/signup';
 import { signInRoute } from './routes/signin';
 import { signOutRoute } from './routes/signout';
+import { currentUserRoute } from './routes/current-user';
 
 // @ts-ignore: false positive
 const app = express() as Express;
@@ -16,7 +17,7 @@ app.set('trust proxy', 1);
 
 //// Setup running env
 const apiVersion = env.API_VERSION || 1;
-export const baseURl =
+export const baseURL =
   env.RUN_ENV === 'kubernetes' ? `/api/v${+apiVersion}/users` : '';
 
 /// Handle logging
@@ -30,9 +31,9 @@ app.use(json({ limit: '10kb' }));
 app.use(cors());
 app.use(compression());
 
-console.table({ apiVersion, baseURl });
+console.table({ apiVersion, baseURl: baseURL });
 
-app.get(`${baseURl}/health`, (req: Request, res: Response) => {
+app.get(`${baseURL}/health`, (req: Request, res: Response) => {
   res.send(
     `
     <div style="
@@ -56,9 +57,10 @@ app.get(`${baseURl}/health`, (req: Request, res: Response) => {
 });
 
 //// Routes
-app.use(`${baseURl}`, signUpRoute);
-app.use(`${baseURl}`, signInRoute);
-app.use(`${baseURl}`, signOutRoute);
+app.use(`${baseURL}`, signUpRoute);
+app.use(`${baseURL}`, signInRoute);
+app.use(`${baseURL}`, signOutRoute);
+app.use(`${baseURL}`, currentUserRoute);
 
 /// Export App
 export { app };
