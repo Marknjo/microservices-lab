@@ -20,21 +20,13 @@ spec:
       - name: auth-api
         image: marknjo/ms-lab-auth
         imagePullPolicy: Never
-        resources:
-          limits:
-            memory: "236Mi"
-            cpu: "200m"
-        env: 
-          - name: PORT
-            value: "3031"
-          - name: HOST
-            value: ticketing.dev
-          - name: HOST_SRV
-            value: ms-auth-srv
-          - name: API_VERSION
-            value: "1"
-          - name: RUN_ENV
-            value: "kubernetes"
+        # resources:
+        #   limits:
+        #     memory: "384Mi"
+        #     cpu: "500m"
+        envFrom:
+          - configMapRef:
+              name: ms-auth-dpy-conf
 
         # readinessProbe:
         #   tcpSocket:
