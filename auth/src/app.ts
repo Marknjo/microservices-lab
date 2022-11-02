@@ -4,6 +4,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { env } from 'process';
 
+/// Routes
+import { signInRouter } from './routes/signup';
+
 // @ts-ignore: false positive
 const app = express() as Express;
 
@@ -51,6 +54,7 @@ app.get(`${baseURl}/health`, (req: Request, res: Response) => {
 });
 
 //// Routes
+app.use(`${baseURl}`, signInRouter);
 
 /// Export App
 export { app };
