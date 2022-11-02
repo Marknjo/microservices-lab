@@ -7,6 +7,7 @@ import { env } from 'process';
 /// Routes
 import { signUpRoute } from './routes/signup';
 import { signInRoute } from './routes/signin';
+import { signOutRoute } from './routes/signout';
 
 // @ts-ignore: false positive
 const app = express() as Express;
@@ -57,6 +58,7 @@ app.get(`${baseURl}/health`, (req: Request, res: Response) => {
 //// Routes
 app.use(`${baseURl}`, signUpRoute);
 app.use(`${baseURl}`, signInRoute);
+app.use(`${baseURl}`, signOutRoute);
 
 /// Export App
 export { app };
