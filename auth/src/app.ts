@@ -59,7 +59,7 @@ app.get(`${baseURL}/health`, (req: Request, res: Response) => {
   );
 });
 
-console.log('');
+console.log('..');
 
 //// Routes
 app.use(`${baseURL}`, signUpRoute);
