@@ -4,6 +4,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { env } from 'process';
 
+/// Local packages
+import globalErrorHandler from './middlewares/error-handler';
+
 /// Routes
 import { signUpRoute } from './routes/signup';
 import { signInRoute } from './routes/signin';
@@ -56,11 +59,16 @@ app.get(`${baseURL}/health`, (req: Request, res: Response) => {
   );
 });
 
+console.log('');
+
 //// Routes
 app.use(`${baseURL}`, signUpRoute);
 app.use(`${baseURL}`, signInRoute);
 app.use(`${baseURL}`, signOutRoute);
 app.use(`${baseURL}`, currentUserRoute);
+
+/// Handle errors
+app.use(globalErrorHandler);
 
 /// Export App
 export { app };
