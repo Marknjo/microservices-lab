@@ -9,8 +9,7 @@ services:
       - 3031:3031
     volumes:
       # Setup library - local dev 
-      - ms-lab-shared-lib:/app/lib:rw
-      - ./lib:/app/lib:ro
+      - ms-lab-shared-lib:/app/lib:ro
       - ../nats-micros-server/src/nats-lib:/app/lib:ro
       # Normal container setup
       - ./src:/app/src

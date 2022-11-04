@@ -4,12 +4,13 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
-COPY package.json .
-COPY tsconfig.json .
+COPY pnpm-lock.yaml package.json ./
 
-RUN pnpm install -P
+RUN pnpm fetch
 
-COPY . .
+ADD . ./
+
+RUN pnpm install -r --offline
 
 # RUN pnpm start:build
 
