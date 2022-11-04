@@ -40,3 +40,4 @@ lerna-debug.log*
 ## Ignmore env files
 *.env
 .env.*
+envs

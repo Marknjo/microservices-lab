@@ -1,0 +1,22 @@
+services:
+  api: 
+    build: 
+      context: .
+    container_name: auth-api-cnt
+    env_file: 
+      - ./envs/dev.env
+    ports:
+      - 3031:3031
+    volumes:
+      # Setup library - local dev 
+      - ms-lab-shared-lib:/app/lib:rw
+      - ./lib:/app/lib:ro
+      - ../nats-micros-server/src/nats-lib:/app/lib:ro
+      # Normal container setup
+      - ./src:/app/src
+      - /app/node_modules
+
+volumes:
+  ms-lab-shared-lib:
+    external: true
+      
