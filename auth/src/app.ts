@@ -1,8 +1,13 @@
-import express, { json, Request, Response } from 'express';
+import express, {
+  json,
+  NextFunction,
+  Request,
+  Response,
+} from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
-import { env } from 'process';
+import { env, nextTick } from 'process';
 
 /// Local packages
 import globalErrorHandler from './middlewares/error-handler';
@@ -12,6 +17,7 @@ import { signUpRoute } from './routes/signup';
 import { signInRoute } from './routes/signin';
 import { signOutRoute } from './routes/signout';
 import { currentUserRoute } from './routes/current-user';
+import { NotFoundError } from './errors/NotFoundError';
 
 // @ts-ignore: false positive
 const app = express() as Express;
@@ -68,6 +74,9 @@ app.use(`${baseURL}`, signOutRoute);
 app.use(`${baseURL}`, currentUserRoute);
 
 /// Handle errors
+app.all('*', () => {
+  throw new NotFoundError();
+});
 app.use(globalErrorHandler);
 
 /// Export App
