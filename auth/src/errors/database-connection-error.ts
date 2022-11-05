@@ -1,13 +1,21 @@
-import { ValidationError } from 'express-validator';
+import { CustomError } from './custom-error';
 
-export class DatabaseConnectionError extends Error {
-  constructor(public errors: ValidationError[]) {
-    super();
+export class DatabaseConnectionError extends CustomError {
+  public readonly statusCode = 500;
 
-    /// Cox extending built in class
+  constructor(
+    public message: string = 'Error connecting to database'
+  ) {
+    super(message);
+
+    // Set prototype
     Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
 
-    /// DO not trace
+    /// do not trace to this object
     Error.captureStackTrace(this, this.constructor);
+  }
+
+  serializeErrors() {
+    return [{ message: this.message }];
   }
 }

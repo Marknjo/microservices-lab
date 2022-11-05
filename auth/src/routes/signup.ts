@@ -23,7 +23,7 @@ router.post(
       throw new RequestValidationError(errors.array());
     }
 
-    throw new DatabaseConnectionError([]);
+    throw new DatabaseConnectionError();
 
     const { email, password } = req.body as {
       email: string;

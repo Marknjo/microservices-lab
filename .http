@@ -1,15 +1,19 @@
 ## Microsevices lab http client requests
 ### Base Variables
-@host=ticketing.dev
-@protocol=https
+# @host=ticketing.dev
+@host=localhost
+# @protocol=https
+@protocol=http
 @hostUrl={{protocol}}://{{host}}
 @apiVersion=1
 @contentType=application/json
+@port=3031
 
 ### AUTH API routes
 ## Variables
 @authApiUrl=/api/v{{apiVersion}}/users
-@authUrl={{hostUrl}}{{authApiUrl}}
+# @authUrl={{hostUrl}}{{authApiUrl}}
+@authUrl={{hostUrl}}:{{port}}
 @pass=test@234
 @email=testuser@ticketing.io
 
