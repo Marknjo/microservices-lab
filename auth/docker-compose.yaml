@@ -12,6 +12,7 @@ services:
       - ms-lab-shared-lib:/app/lib:ro
       - ../nats-micros-server/src/nats-lib:/app/lib:ro
       # Normal container setup
+      - ./envs:/app/envs
       - ./src:/app/src
       - /app/node_modules
 
