@@ -10,14 +10,14 @@ import morgan from 'morgan';
 import { env, nextTick } from 'process';
 
 /// Local packages
-import globalErrorHandler from './middlewares/error-handler';
+import globalExceptionHandler from './middlewares/global-exception-handler';
 
 /// Routes
 import { signUpRoute } from './routes/signup';
 import { signInRoute } from './routes/signin';
 import { signOutRoute } from './routes/signout';
 import { currentUserRoute } from './routes/current-user';
-import { NotFoundError } from './errors/NotFoundError';
+import { NotFoundException } from './exceptions/NotFoundException';
 
 // @ts-ignore: false positive
 const app = express() as Express;
@@ -75,9 +75,9 @@ app.use(`${baseURL}`, currentUserRoute);
 
 /// Handle errors
 app.all('*', () => {
-  throw new NotFoundError();
+  throw new NotFoundException();
 });
-app.use(globalErrorHandler);
+app.use(globalExceptionHandler);
 
 /// Export App
 export { app };

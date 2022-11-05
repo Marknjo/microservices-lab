@@ -1,6 +1,6 @@
-import { CustomError } from './custom-error';
+import { ExceptionHandler } from './ExceptionHandler';
 
-export class DatabaseConnectionError extends CustomError {
+export class DatabaseConnectionException extends ExceptionHandler {
   public readonly statusCode = 500;
 
   constructor(
@@ -9,7 +9,10 @@ export class DatabaseConnectionError extends CustomError {
     super(message);
 
     // Set prototype
-    Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
+    Object.setPrototypeOf(
+      this,
+      DatabaseConnectionException.prototype
+    );
 
     /// do not trace to this object
     Error.captureStackTrace(this, this.constructor);

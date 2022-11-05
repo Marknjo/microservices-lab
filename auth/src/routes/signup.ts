@@ -1,7 +1,7 @@
 import { Router, Response, Request } from 'express';
 import { body, validationResult } from 'express-validator';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
-import { RequestValidationError } from '../errors/request-validation-error';
+import { DatabaseConnectionException } from '../exceptions/DatabaseConnectionException';
+import { RequestValidationException } from '../exceptions/RequestValidationException';
 
 const router = Router();
 
@@ -20,10 +20,10 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
+      throw new RequestValidationException(errors.array());
     }
 
-    throw new DatabaseConnectionError();
+    throw new DatabaseConnectionException();
 
     const { email, password } = req.body as {
       email: string;

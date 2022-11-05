@@ -1,7 +1,7 @@
 import { ValidationError } from 'express-validator';
-import { CustomError } from './custom-error';
+import { ExceptionHandler } from './ExceptionHandler';
 
-export class RequestValidationError extends CustomError {
+export class RequestValidationException extends ExceptionHandler {
   public readonly statusCode = 400;
 
   constructor(
@@ -11,7 +11,7 @@ export class RequestValidationError extends CustomError {
     super(message);
 
     // Set prototype
-    Object.setPrototypeOf(this, RequestValidationError.prototype);
+    Object.setPrototypeOf(this, RequestValidationException.prototype);
 
     /// do not trace to this object
     Error.captureStackTrace(this, this.constructor);
