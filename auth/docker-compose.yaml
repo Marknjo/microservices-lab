@@ -15,7 +15,20 @@ services:
       - ./src:/app/src
       - /app/node_modules
 
+  # Mongo DB container
+  db: 
+    image: mongo
+    container_name: auth-db-cnt
+    restart: always
+    env_file:
+      - ./envs/db.env
+    ports:
+      - "27017:27017"
+    volumes:
+      - auth-data:/data/db
+
 volumes:
   ms-lab-shared-lib:
     external: true
+  auth-data:
       

@@ -18,11 +18,14 @@ import { signInRoute } from './routes/signin';
 import { signOutRoute } from './routes/signout';
 import { currentUserRoute } from './routes/current-user';
 import { NotFoundException } from './exceptions/NotFoundException';
+import { randomBytes } from 'crypto';
 
 // @ts-ignore: false positive
 const app = express() as Express;
 
 app.set('trust proxy', 1);
+
+console.log(randomBytes(24).toString('hex'));
 
 //// Setup running env
 const apiVersion = env.API_VERSION || 1;
