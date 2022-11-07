@@ -9,9 +9,9 @@ export interface BaseEnvLoaderTypes {
 }
 
 /**
- * Supported types the EnvLoader utility can parse comfortably
+ * Supported types of the EnvLoader utility can parse comfortably
  */
-export enum SupportedEnvLoaderTypes {
+export enum EnvLoaderTypes {
   STRING = 'string',
   NUMBER = 'number',
   BOOLEAN = 'boolean',
@@ -66,7 +66,7 @@ class EnvLoader {
    */
   add<T extends BaseEnvLoaderTypes>(
     envValue: keyof T,
-    type: SupportedEnvLoaderTypes
+    type: EnvLoaderTypes
   ) {
     this.rejectIf(envValue);
     /// Check if it is available first
@@ -99,20 +99,20 @@ class EnvLoader {
    */
   private parseCollectionValueType<T extends BaseEnvLoaderTypes>(
     envValue: keyof T,
-    type: SupportedEnvLoaderTypes
+    type: EnvLoaderTypes
   ) {
     let collectionValueAs: string | number | boolean;
 
     switch (type) {
-      case SupportedEnvLoaderTypes.STRING:
+      case EnvLoaderTypes.STRING:
         collectionValueAs = env[String(envValue)]!;
         break;
 
-      case SupportedEnvLoaderTypes.BOOLEAN:
+      case EnvLoaderTypes.BOOLEAN:
         collectionValueAs = Boolean(env[String(envValue)]);
         break;
 
-      case SupportedEnvLoaderTypes.NUMBER:
+      case EnvLoaderTypes.NUMBER:
         collectionValueAs = +env[String(envValue)]!;
         break;
 
