@@ -15,7 +15,7 @@ const host = envLoader.use<EnvsTypes>('HOST');
 const healthUrl = `${baseURL}/health`;
 
 /// Connect to the database
-connectToDB(dbUrl());
+// connectToDB(dbUrl());
 
 /// Start App
 app.listen(port, () => {
@@ -30,6 +30,6 @@ app.listen(port, () => {
   const rootHostUrl = host === 'localhost' ? `${host}:${port}` : host;
 
   console.log(
-    `🎊🎊🎊 Auth api health check running on ${protocol}://${rootHostUrl}${healthUrl}`
+    `🎊🎊🎊 Auth api health check running on ${protocol}://${rootHostUrl}${healthUrl} \n`
   );
 });

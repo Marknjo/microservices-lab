@@ -6,3 +6,4 @@ data:
   API_VERSION: "1"
   RUN_ENV: "kubernetes"
   HOST: ticketing.dev
+  NODE_ENV: development
