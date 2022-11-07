@@ -1,14 +1,21 @@
 import { env } from 'process';
 import mongoose from 'mongoose';
+import { envLoader } from './envs-loader.config';
+import { EnvsTypes } from './app-envs.config';
 
 export const dbUrl = (): string => {
   let url = env.DB_URL!;
+  const dbUser = envLoader.use<EnvsTypes>('DB_USER');
+  const dbPass = envLoader.use<EnvsTypes>('DB_PASS');
+  const dbPort = envLoader.use<EnvsTypes>('DB_PORT');
+  const dbHost = envLoader.use<EnvsTypes>('DB_HOST');
+  const dbName = envLoader.use<EnvsTypes>('DB_NAME');
 
-  url = url.replace(/{{DB_USER}}/, env.DB_USER!);
-  url = url.replace(/{{DB_PASS}}/, env.DB_PASS!);
-  url = url.replace(/{{DB_HOST}}/, env.DB_HOST!);
-  url = url.replace(/{{DB_PORT}}/, env.DB_PORT!);
-  url = url.replace(/{{DB_NAME}}/, env.DB_NAME!);
+  url = url.replace(/{{DB_USER}}/, dbUser);
+  url = url.replace(/{{DB_PASS}}/, dbPass);
+  url = url.replace(/{{DB_HOST}}/, dbHost);
+  url = url.replace(/{{DB_PORT}}/, dbPort);
+  url = url.replace(/{{DB_NAME}}/, dbName);
 
   return url;
 };

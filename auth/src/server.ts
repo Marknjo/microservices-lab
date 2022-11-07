@@ -12,24 +12,7 @@ const hostSrv = env.HOST_SRV || 'localhost';
 const host = env.HOST || 'localhost';
 const healthUrl = `${baseURL}/health`;
 
-/// Envs without defaults
-const rejectEnvIf = (envName: string) => {
-  if (!Boolean(env[envName])) {
-    throw Error(`Environment variable ${envName}not defined: `);
-  }
-};
-
-const checkEnvsBeforeUsing = () => {
-  rejectEnvIf('DB_URL');
-  rejectEnvIf('DB_USER');
-  rejectEnvIf('DB_PASS');
-  rejectEnvIf('DB_HOST');
-  rejectEnvIf('DB_PORT');
-  rejectEnvIf('DB_NAME');
-};
-
-checkEnvsBeforeUsing();
-
+/// Connect to the database
 connectToDB(dbUrl());
 
 app.listen(port, () => {
