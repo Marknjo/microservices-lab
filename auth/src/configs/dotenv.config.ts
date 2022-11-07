@@ -10,3 +10,6 @@ const options = stage
   : {};
 
 dotenv.config(options);
+
+/// Load app envs - Must load after initialization of the dotenv
+import './app-envs.config';

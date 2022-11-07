@@ -2,8 +2,8 @@ import { env } from 'process';
 
 import './configs/dotenv.config';
 
+/// Initialize types
 import { app, baseURL } from './app';
-import mongoose from 'mongoose';
 import { connectToDB, dbUrl } from './configs/db-connection.config';
 
 /// Start express server
@@ -12,21 +12,20 @@ const hostSrv = env.HOST_SRV || 'localhost';
 const host = env.HOST || 'localhost';
 const healthUrl = `${baseURL}/health`;
 
-const rejectIf = (test: Boolean, value?: string) => {
-  const envName = value ? `${value} ` : '';
-
-  if (!Boolean(test)) {
-    throw Error(`Environment variable ${envName}not defined`);
+/// Envs without defaults
+const rejectEnvIf = (envName: string) => {
+  if (!Boolean(env[envName])) {
+    throw Error(`Environment variable ${envName}not defined: `);
   }
 };
 
 const checkEnvsBeforeUsing = () => {
-  rejectIf(Boolean(env.DB_URL), 'DB_URL');
-  rejectIf(Boolean(env.DB_USER), 'DB_USER');
-  rejectIf(Boolean(env.DB_PASS), 'DB_PASS');
-  rejectIf(Boolean(env.DB_HOST), 'DB_HOST');
-  rejectIf(Boolean(env.DB_PORT), 'DB_PORT');
-  rejectIf(Boolean(env.DB_NAME), 'DB_NAME');
+  rejectEnvIf('DB_URL');
+  rejectEnvIf('DB_USER');
+  rejectEnvIf('DB_PASS');
+  rejectEnvIf('DB_HOST');
+  rejectEnvIf('DB_PORT');
+  rejectEnvIf('DB_NAME');
 };
 
 checkEnvsBeforeUsing();
