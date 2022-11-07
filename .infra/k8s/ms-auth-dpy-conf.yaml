@@ -6,7 +6,6 @@ data:
   PORT: "3031"
   HOST_SRV: ms-auth-srv
   # DB Configs
-  DB_PASS: 8ac6f1565da868ca774a1138fd58d284d69444031b3d3166
   DB_HOST: db
   DB_USER: auth-admin-user
   DB_PORT: "27017"

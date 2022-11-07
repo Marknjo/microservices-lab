@@ -25,6 +25,12 @@ spec:
               name: ms-gen-conf
           - configMapRef:
               name: ms-auth-dpy-conf
+        env: 
+          - name: DB_PASS 
+            valueFrom:
+              secretKeyRef:
+                name: ms-auth-mongodb
+                key: MONGO_INITDB_ROOT_PASSWORD
         ports:
          - containerPort: 3031
 
