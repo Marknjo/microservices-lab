@@ -17,6 +17,7 @@ export interface EnvsTypes extends BaseEnvLoaderTypes {
   DB_PORT: number;
   DB_NAME: string;
   DB_URL: string;
+  NODE_ENV: string;
 }
 
 /// Load all app envs
@@ -29,3 +30,7 @@ envLoader.add<EnvsTypes>('DB_NAME', SupportedEnvLoaderTypes.STRING);
 envLoader.add<EnvsTypes>('DB_USER', SupportedEnvLoaderTypes.STRING);
 envLoader.add<EnvsTypes>('DB_PORT', SupportedEnvLoaderTypes.NUMBER);
 envLoader.add<EnvsTypes>('DB_URL', SupportedEnvLoaderTypes.STRING);
+envLoader.add<EnvsTypes>('NODE_ENV', SupportedEnvLoaderTypes.STRING);
+
+/// Default get the node env
+export const nodeEnv = envLoader.use<EnvsTypes>('DB_NAME');

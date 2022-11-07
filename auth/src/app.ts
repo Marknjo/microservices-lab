@@ -1,13 +1,7 @@
-import express, {
-  json,
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import express, { json, Request, Response } from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
-import { env, nextTick } from 'process';
 
 /// Local packages
 import globalExceptionHandler from './middlewares/global-exception-handler';
@@ -18,23 +12,25 @@ import { signInRoute } from './routes/signin';
 import { signOutRoute } from './routes/signout';
 import { currentUserRoute } from './routes/current-user';
 import { NotFoundException } from './exceptions/NotFoundException';
-import { randomBytes } from 'crypto';
+import { envLoader } from './configs/envs-loader.config';
+import { EnvsTypes, nodeEnv } from './configs/app-envs.config';
 
 // @ts-ignore: false positive
 const app = express() as Express;
 
 app.set('trust proxy', 1);
 
-console.log(randomBytes(24).toString('hex'));
+let apiVersion = envLoader.use<EnvsTypes>('API_VERSION');
+const runEnv = envLoader.use<EnvsTypes>('RUN_ENV');
 
 //// Setup running env
-const apiVersion = env.API_VERSION || 1;
+apiVersion = apiVersion || 1;
 export const baseURL =
-  env.RUN_ENV === 'kubernetes' ? `/api/v${+apiVersion}/users` : '';
+  runEnv === 'kubernetes' ? `/api/v${+apiVersion}/users` : '';
 
 /// Handle logging
 const morganLogOptions =
-  env.NODE_ENV === 'production' ? 'combined' : 'dev';
+  nodeEnv === 'production' ? 'combined' : 'dev';
 
 app.use(morgan(morganLogOptions));
 
@@ -67,8 +63,6 @@ app.get(`${baseURL}/health`, (req: Request, res: Response) => {
     `
   );
 });
-
-console.log('..');
 
 //// Routes
 app.use(`${baseURL}`, signUpRoute);
