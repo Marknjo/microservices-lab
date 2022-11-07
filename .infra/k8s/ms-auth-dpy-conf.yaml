@@ -6,7 +6,7 @@ data:
   PORT: "3031"
   HOST_SRV: ms-auth-srv
   # DB Configs
-  DB_HOST: db
+  DB_HOST: auth-db-srv
   DB_USER: auth-admin-user
   DB_PORT: "27017"
   DB_NAME: users
