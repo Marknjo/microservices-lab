@@ -50,9 +50,9 @@ class EnvLoader {
    * @param envName name of the environment variable
    */
   private rejectIf<T extends BaseEnvLoaderTypes>(envName: keyof T) {
-    const transformedEnvName = envName as string;
+    const transformedEnvName = `${envName as string} `;
 
-    if (!Boolean(env[transformedEnvName])) {
+    if (!Boolean(env[transformedEnvName.trim()])) {
       throw Error(
         `Environment variable ${transformedEnvName}not defined: `
       );

@@ -1,20 +1,23 @@
-import { env } from 'process';
-
 import './configs/dotenv.config';
 
 /// Initialize types
 import { app, baseURL } from './app';
 import { connectToDB, dbUrl } from './configs/db-connection.config';
+import { envLoader } from './configs/envs-loader.config';
+import { EnvsTypes } from './configs/app-envs.config';
+
+/// Load defaults
 
 /// Start express server
-const port = env.PORT || 3031;
-const hostSrv = env.HOST_SRV || 'localhost';
-const host = env.HOST || 'localhost';
+const port = envLoader.use<EnvsTypes>('PORT');
+const hostSrv = envLoader.use<EnvsTypes>('HOST_SRV');
+const host = envLoader.use<EnvsTypes>('HOST');
 const healthUrl = `${baseURL}/health`;
 
 /// Connect to the database
 connectToDB(dbUrl());
 
+/// Start App
 app.listen(port, () => {
   console.log('\n');
 
