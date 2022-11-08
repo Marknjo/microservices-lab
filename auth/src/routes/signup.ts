@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { body, validationResult } from 'express-validator';
-import { DatabaseConnectionException } from '../exceptions/DatabaseConnectionException';
+import { User } from '../models/user';
 import { RequestValidationException } from '../exceptions/RequestValidationException';
 
 const router = Router();
@@ -16,29 +16,31 @@ router.post(
     .isLength({ min: 4, max: 20 })
     .withMessage('Password must be between 4 and 20 characters long'),
 
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       throw new RequestValidationException(errors.array());
     }
 
-    throw new DatabaseConnectionException();
+    const { email, password } = req.body;
 
-    const { email, password } = req.body as {
-      email: string;
-      password: string;
-    };
+    const existingUser = await User.findOne({ email });
 
-    if (!email || typeof email !== 'string') {
-      res.status(400).send('Provide a valid email');
+    if (existingUser) {
+      console.log('Email in user');
+      return res.send({});
     }
 
-    console.table({ email, password });
+    const user = User.build({ email, password });
+
+    await user.save();
 
     res.status(201).json({
       status: 'success',
-      message: 'Processing signup',
+      data: {
+        user,
+      },
     });
   }
 );

@@ -20,6 +20,9 @@
 ### Health Check
 GET {{authUrl}}/health HTTP/1.1
 
+### All users
+GET {{authUrl}}/users HTTP/1.1
+
 ### Signup
 POST {{authUrl}}/signup HTTP/1.1
 Content-Type: {{contentType}}

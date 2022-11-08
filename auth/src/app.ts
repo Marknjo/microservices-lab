@@ -70,6 +70,8 @@ app.use(`${baseURL}`, signInRoute);
 app.use(`${baseURL}`, signOutRoute);
 app.use(`${baseURL}`, currentUserRoute);
 
+console.log('...');
+
 /// Handle errors
 app.all('*', () => {
   throw new NotFoundException();

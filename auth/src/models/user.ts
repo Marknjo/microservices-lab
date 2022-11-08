@@ -8,8 +8,8 @@ interface UserAttrs {
 }
 
 /// An interface that describes the properties that a User Model has
-interface UserModel extends Model<any> {
-  build(attrs: UserAttrs): any;
+interface UserModel extends Model<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
 }
 
 /// An interface that describe the properties that a User Document has
@@ -25,6 +25,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'User must have email'],
+      unique: [true],
     },
     password: {
       type: String,
