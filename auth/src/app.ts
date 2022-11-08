@@ -1,4 +1,5 @@
 import express, { json, Request, Response } from 'express';
+import 'express-async-errors';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';

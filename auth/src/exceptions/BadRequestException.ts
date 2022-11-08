@@ -7,6 +7,7 @@ export class BadRequestException extends ExceptionHandler {
     super(message);
 
     Object.setPrototypeOf(this, BadRequestException.prototype);
+    Error.captureStackTrace(this, this.constructor);
   }
 
   serializeErrors(): {
