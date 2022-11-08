@@ -1,4 +1,5 @@
 import mongoose, { Document, Model } from 'mongoose';
+import { Password } from '../services/password';
 const { Schema, model } = mongoose;
 
 /// Properties required to create a new user
@@ -30,12 +31,24 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'User must have a password'],
+      select: false,
     },
   },
   {
     timestamps: true,
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true },
   }
 );
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) next();
+
+  const hashedPass = await Password.hash(this.password);
+  this.password = hashedPass;
+
+  next();
+});
 
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
