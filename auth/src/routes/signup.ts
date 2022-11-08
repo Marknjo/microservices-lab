@@ -2,6 +2,7 @@ import { Router, Response, Request } from 'express';
 import { body, validationResult } from 'express-validator';
 import { User } from '../models/user';
 import { RequestValidationException } from '../exceptions/RequestValidationException';
+import { BadRequestException } from '../exceptions/BadRequestException';
 
 const router = Router();
 
@@ -28,8 +29,7 @@ router.post(
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      console.log('Email in user');
-      return res.send({});
+      throw new BadRequestException('Email in user');
     }
 
     const user = User.build({ email, password });
