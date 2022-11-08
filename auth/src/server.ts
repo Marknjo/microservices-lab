@@ -14,8 +14,6 @@ const hostSrv = envLoader.use<EnvsTypes>('HOST_SRV');
 const host = envLoader.use<EnvsTypes>('HOST');
 const healthUrl = `${baseURL}/health`;
 
-console.log(dbUrl());
-
 /// Connect to the database
 connectToDB(dbUrl());
 

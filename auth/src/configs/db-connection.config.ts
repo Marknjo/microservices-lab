@@ -21,8 +21,6 @@ export const dbUrl = (): string => {
 };
 
 export const connectToDB = async (url: string) => {
-  console.log({ url });
-
   try {
     await mongoose.connect(url, {
       keepAlive: true,
