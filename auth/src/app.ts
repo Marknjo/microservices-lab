@@ -21,8 +21,8 @@ const app = express() as Express;
 
 app.set('trust proxy', 1);
 
-const apiVersion = envLoader.use<EnvsTypes>('API_VERSION') as number;
-const runEnv = envLoader.use<EnvsTypes>('RUN_ENV') as string;
+const apiVersion = envLoader.get<EnvsTypes>('API_VERSION');
+const runEnv = envLoader.get<EnvsTypes>('RUN_ENV') as string;
 
 //// Setup running env
 export const baseURL =

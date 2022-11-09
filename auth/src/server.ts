@@ -9,9 +9,9 @@ import { EnvsTypes } from './configs/app-envs.config';
 /// Load defaults
 
 /// Start express server
-const port = envLoader.use<EnvsTypes>('PORT') as number;
-const hostSrv = envLoader.use<EnvsTypes>('HOST_SRV') as string;
-const host = envLoader.use<EnvsTypes>('HOST') as string;
+const port = envLoader.get<EnvsTypes>('PORT');
+const hostSrv = envLoader.get<EnvsTypes>('HOST_SRV');
+const host = envLoader.get<EnvsTypes>('HOST') as string;
 const healthUrl = `${baseURL}/health`;
 
 /// Connect to the database

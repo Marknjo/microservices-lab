@@ -84,7 +84,7 @@ class EnvLoader {
    * @param key The name of the env to load
    * @returns string | number | boolean - matching key
    */
-  use<T extends BaseEnvLoaderTypes>(key: keyof T) {
+  get<T extends BaseEnvLoaderTypes>(key: keyof T): typeof key {
     return this.collection[key as string];
   }
 

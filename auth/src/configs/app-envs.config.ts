@@ -35,4 +35,4 @@ envLoader.add<EnvsTypes>('NODE_ENV', EnvLoaderTypes.STRING);
 envLoader.add<EnvsTypes>('HOST_SRV', EnvLoaderTypes.STRING);
 
 /// Default get the node env
-export const nodeEnv = envLoader.use<EnvsTypes>('DB_NAME');
+export const nodeEnv = envLoader.get<EnvsTypes>('DB_NAME') as string;
