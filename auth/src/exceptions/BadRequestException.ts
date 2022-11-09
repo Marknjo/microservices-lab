@@ -1,6 +1,6 @@
-import { ExceptionHandler } from './ExceptionHandler';
+import { HttpExceptionFilter } from './ExceptionHandler';
 
-export class BadRequestException extends ExceptionHandler {
+export class BadRequestException extends HttpExceptionFilter {
   statusCode: number = 400;
 
   constructor(public message: string) {

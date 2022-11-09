@@ -1,6 +1,6 @@
-import { ExceptionHandler } from './ExceptionHandler';
+import { HttpExceptionFilter } from './ExceptionHandler';
 
-export class DatabaseConnectionException extends ExceptionHandler {
+export class DatabaseConnectionException extends HttpExceptionFilter {
   public readonly statusCode = 500;
 
   constructor(

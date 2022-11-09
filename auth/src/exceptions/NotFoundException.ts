@@ -1,6 +1,6 @@
-import { ExceptionHandler } from './ExceptionHandler';
+import { HttpExceptionFilter } from './ExceptionHandler';
 
-export class NotFoundException extends ExceptionHandler {
+export class NotFoundException extends HttpExceptionFilter {
   statusCode: number = 404;
 
   constructor(public message: string = 'Not found') {

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ExceptionHandler } from '../exceptions/ExceptionHandler';
+import { HttpExceptionFilter } from '../exceptions/ExceptionHandler';
 
 export default (
   err: Error,
@@ -7,7 +7,7 @@ export default (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof ExceptionHandler) {
+  if (err instanceof HttpExceptionFilter) {
     return res
       .status(err.statusCode)
       .json({ errors: err.serializeErrors() });

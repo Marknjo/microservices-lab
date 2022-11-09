@@ -1,7 +1,7 @@
 import { ValidationError } from 'express-validator';
-import { ExceptionHandler } from './ExceptionHandler';
+import { HttpExceptionFilter } from './ExceptionHandler';
 
-export class RequestValidationException extends ExceptionHandler {
+export class RequestValidationException extends HttpExceptionFilter {
   public readonly statusCode = 400;
 
   constructor(
