@@ -21,11 +21,10 @@ const app = express() as Express;
 
 app.set('trust proxy', 1);
 
-let apiVersion = envLoader.use<EnvsTypes>('API_VERSION');
-const runEnv = envLoader.use<EnvsTypes>('RUN_ENV');
+const apiVersion = envLoader.use<EnvsTypes>('API_VERSION') as number;
+const runEnv = envLoader.use<EnvsTypes>('RUN_ENV') as string;
 
 //// Setup running env
-apiVersion = apiVersion || 1;
 export const baseURL =
   runEnv === 'kubernetes' ? `/api/v${+apiVersion}/users` : '';
 

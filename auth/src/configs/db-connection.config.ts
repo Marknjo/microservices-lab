@@ -5,11 +5,11 @@ import { EnvsTypes } from './app-envs.config';
 
 export const dbUrl = (): string => {
   let url = env.DB_URL!;
-  const dbUser = envLoader.use<EnvsTypes>('DB_USER');
-  const dbPass = envLoader.use<EnvsTypes>('DB_PASS');
-  const dbPort = envLoader.use<EnvsTypes>('DB_PORT');
-  const dbHost = envLoader.use<EnvsTypes>('DB_HOST');
-  const dbName = envLoader.use<EnvsTypes>('DB_NAME');
+  const dbUser = envLoader.use<EnvsTypes>('DB_USER') as string;
+  const dbPass = envLoader.use<EnvsTypes>('DB_PASS') as string;
+  const dbPort = envLoader.use<EnvsTypes>('DB_PORT') as string;
+  const dbHost = envLoader.use<EnvsTypes>('DB_HOST') as string;
+  const dbName = envLoader.use<EnvsTypes>('DB_NAME') as string;
 
   url = url.replace(/{{DB_USER}}/, dbUser);
   url = url.replace(/{{DB_PASS}}/, dbPass);
