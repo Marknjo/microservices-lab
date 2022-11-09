@@ -13,7 +13,10 @@ import { signInRoute } from './routes/signin';
 import { signOutRoute } from './routes/signout';
 import { currentUserRoute } from './routes/current-user';
 import { NotFoundException } from './exceptions/NotFoundException';
-import { envLoader } from './configs/envs-loader.config';
+import {
+  envLoader,
+  EnvLoaderTypes,
+} from './configs/envs-loader.config';
 import { EnvsTypes, nodeEnv } from './configs/app-envs.config';
 
 // @ts-ignore: false positive
@@ -21,7 +24,9 @@ const app = express() as Express;
 
 app.set('trust proxy', 1);
 
-const apiVersion = envLoader.get<EnvsTypes>('API_VERSION');
+const apiVersion = envLoader.get<EnvsTypes>(
+  'API_VERSION'
+) as EnvLoaderTypes.NUMBER;
 const runEnv = envLoader.get<EnvsTypes>('RUN_ENV') as string;
 
 //// Setup running env

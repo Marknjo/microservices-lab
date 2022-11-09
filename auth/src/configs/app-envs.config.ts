@@ -22,17 +22,18 @@ export interface EnvsTypes extends BaseEnvLoaderTypes {
 }
 
 /// Load all app envs
-envLoader.add<EnvsTypes>('PORT', EnvLoaderTypes.NUMBER);
-envLoader.add<EnvsTypes>('RUN_ENV', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('HOST', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('DB_PASS', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('DB_HOST', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('DB_NAME', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('DB_USER', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('DB_PORT', EnvLoaderTypes.NUMBER);
-envLoader.add<EnvsTypes>('DB_URL', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('NODE_ENV', EnvLoaderTypes.STRING);
-envLoader.add<EnvsTypes>('HOST_SRV', EnvLoaderTypes.STRING);
+envLoader.number().add<EnvsTypes>('PORT');
+envLoader.string().optional().add<EnvsTypes>('RUN_ENV');
+envLoader.string().add<EnvsTypes>('HOST');
+envLoader.string().add<EnvsTypes>('DB_PASS');
+envLoader.string().add<EnvsTypes>('DB_HOST');
+envLoader.string().add<EnvsTypes>('DB_NAME');
+envLoader.string().add<EnvsTypes>('DB_USER');
+envLoader.number().add<EnvsTypes>('DB_PORT');
+envLoader.string().add<EnvsTypes>('DB_URL');
+envLoader.optional().string().add<EnvsTypes>('NODE_ENV');
+envLoader.string().add<EnvsTypes>('HOST_SRV');
+// envLoader.add('API_VERSION');
 
 /// Default get the node env
-export const nodeEnv = envLoader.get<EnvsTypes>('DB_NAME') as string;
+export const nodeEnv = envLoader.get<EnvsTypes>('NODE_ENV') as string;
