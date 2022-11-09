@@ -9,8 +9,8 @@ class NatsWrapper {
       throw new Error('Cannot access NATS client before connecting');
     }
 
-    /// always close the client if client is closed
-    this.close(this._client);
+    /// Clean shutdown of the client if client goes offline or restarts
+    this.cleanShutdown(this._client);
 
     /// Return the client
     return this._client;
@@ -41,7 +41,7 @@ class NatsWrapper {
     });
   }
 
-  private close(client: Stan) {
+  private cleanShutdown(client: Stan) {
     client.on('close', () => {
       console.log('Terminating Nats server connection...⌛⏳⌛⏳');
       process.exit(process.exitCode || 0);
